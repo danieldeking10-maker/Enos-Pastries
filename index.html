@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eno's Pastries - Premium Bakery Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(234, 179, 8, 0.6);
+            }
+        }
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+        .animate-text-reveal {
+            animation: textReveal 1s ease-out forwards;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .nav-scrolled {
+            background: rgba(255, 248, 240, 0.98);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #f5f5f4 25%, #e7e5e4 50%, #f5f5f4 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        .gallery-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px);
+        }
+        .testimonial-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .testimonial-card:hover {
+            transform: scale(1.02);
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fef3c7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b45309;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 text-stone-800">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">🥐</span>
+                    </div>
+                    <span class="text-2xl font-bold text-amber-900">Eno's Pastries</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-stone-700 hover:text-amber-700 font-medium transition-colors duration-300">Home</a>
+                    <a href="#products" class="text-stone-700 hover:text-amber-700 font-medium transition-colors duration-300">Products</a>
+                    <a href="#combos" class="text-stone-700 hover:text-amber-700 font-medium transition-colors duration-300">Combos</a>
+                    <a href="#testimonials" class="text-stone-700 hover:text-amber-700 font-medium transition-colors duration-300">Reviews</a>
+                    <a href="#gallery" class="text-stone-700 hover:text-amber-700 font-medium transition-colors duration-300">Gallery</a>
+                    <a href="#cart" class="text-stone-700 hover:text-amber-700 font-medium transition-colors duration-300 flex items-center gap-2">
+                        🛒 Cart <span id="cart-count" class="bg-amber-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+                    </a>
+                </div>
+                <a href="#cart" class="md:hidden bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-2 rounded-full font-medium shadow-lg">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24">
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-100 via-orange-50 to-amber-100"></div>
+        <div class="absolute top-20 left-10 text-6xl animate-float" style="animation-delay: 0s;">🥐</div>
+        <div class="absolute top-40 right-20 text-5xl animate-float" style="animation-delay: 0.5s;">🍰</div>
+        <div class="absolute bottom-40 left-1/4 text-4xl animate-float" style="animation-delay: 1s;">🥧</div>
+        <div class="absolute bottom-20 right-1/3 text-5xl animate-float" style="animation-delay: 1.5s;">☕</div>
+        <div class="absolute top-1/2 left-10 text-3xl animate-float" style="animation-delay: 2s;">🍪</div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="animate-text-reveal" style="animation-delay: 0.2s;">
+                <p class="text-amber-700 text-lg font-medium mb-4 tracking-widest uppercase">Welcome to Eno's</p>
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-stone-800 mb-6 animate-text-reveal" style="animation-delay: 0.4s;">
+                Where Every <span class="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Bite</span> is a Celebration
+            </h1>
+            <p class="text-xl md:text-2xl text-stone-600 mb-12 max-w-3xl mx-auto animate-text-reveal" style="animation-delay: 0.6s;">
+                Handcrafted pastries made with love, premium ingredients, and generations of baking expertise.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center animate-text-reveal" style="animation-delay: 0.8s;">
+                <a href="#products" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-10 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+                    Explore Our Menu
+                </a>
+                <a href="#combos" class="border-2 border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300">
+                    Special Combos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Counters -->
+    <section class="py-16 bg-gradient-to-r from-amber-800 to-orange-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold mb-2">5000+</div>
+                    <div class="text-amber-100 text-lg">Happy Customers</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">10000+</div>
+                    <div class="text-amber-100 text-lg">Orders Delivered</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2">5+</div>
+                    <div class="text-amber-100 text-lg">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-24 bg-gradient-to-b from-amber-50 to-orange-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-amber-700 text-lg font-medium mb-4 tracking-widest uppercase">Our Signature Collection</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-stone-800 mb-6">Artisan Pastries & Drinks</h2>
+                <p class="text-xl text-stone-600 max-w-2xl mx-auto">Each item is handcrafted with love and the finest ingredients</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-12">
+                <input
+                    id="search-input"
+                    type="text"
+                    placeholder="Search for your favorite pastry..."
+                    class="w-full md:w-96 px-6 py-4 rounded-full border-2 border-amber-200 focus:border-amber-500 focus:outline-none bg-white shadow-lg transition-all duration-300"
+                />
+                <div class="flex gap-4">
+                    <button data-category="All" class="category-filter bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-2 rounded-full font-medium shadow-lg">All</button>
+                    <button data-category="Pastry" class="category-filter bg-white text-stone-700 hover:bg-amber-100 px-6 py-2 rounded-full font-medium border-2 border-amber-200 transition-all duration-300">Pastries</button>
+                    <button data-category="Drink" class="category-filter bg-white text-stone-700 hover:bg-amber-100 px-6 py-2 rounded-full font-medium border-2 border-amber-200 transition-all duration-300">Drinks</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Special Combos Section -->
+    <section id="combos" class="py-24 bg-gradient-to-b from-orange-50 to-amber-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-amber-700 text-lg font-medium mb-4 tracking-widest uppercase">Perfect Pairings</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-stone-800 mb-6">Special Combos</h2>
+                <p class="text-xl text-stone-600 max-w-2xl mx-auto">Save more with our delicious combinations</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="combos-grid">
+                <!-- Combos will be rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 bg-gradient-to-b from-amber-100 to-orange-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-amber-700 text-lg font-medium mb-4 tracking-widest uppercase">What Our Customers Say</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-stone-800 mb-6">Loved by Thousands</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card glassmorphism rounded-2xl p-8 shadow-xl">
+                    <div class="flex items-center gap-1 mb-4 text-amber-500">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <p class="text-stone-600 mb-6 italic">"The meat pies are absolutely incredible! Best I've ever had. The service is wonderful too!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">A</div>
+                        <div>
+                            <div class="font-semibold text-stone-800">Ama Serwaa</div>
+                            <div class="text-sm text-stone-500">Regular Customer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glassmorphism rounded-2xl p-8 shadow-xl">
+                    <div class="flex items-center gap-1 mb-4 text-amber-500">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <p class="text-stone-600 mb-6 italic">"Perfect for events! We ordered for our wedding and everyone loved the pastries. Highly recommend!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xl">K</div>
+                        <div>
+                            <div class="font-semibold text-stone-800">Kofi Mensah</div>
+                            <div class="text-sm text-stone-500">Wholesale Client</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glassmorphism rounded-2xl p-8 shadow-xl">
+                    <div class="flex items-center gap-1 mb-4 text-amber-500">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                    <p class="text-stone-600 mb-6 italic">"The cocoa drink is amazing! And the rock buns bring back childhood memories. Love this place!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl">E</div>
+                        <div>
+                            <div class="font-semibold text-stone-800">Esi Yankah</div>
+                            <div class="text-sm text-stone-500">Happy Customer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-gradient-to-b from-orange-100 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-amber-700 text-lg font-medium mb-4 tracking-widest uppercase">Behind the Scenes</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-stone-800 mb-6">Our Bakery Gallery</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="gallery-item col-span-2 row-span-2 rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=artisan%20bakery%20kitchen%20with%20fresh%20pastries%20and%20bakers%20working%2C%20warm%20lighting&image_size=square_hd" alt="Bakery Kitchen" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=close%20up%20of%20freshly%20baked%20golden%20brown%20meat%20pies%20on%20a%20rack&image_size=square_hd" alt="Fresh Meat Pies" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=delicious%20chocolate%20drink%20with%20whipped%20cream%20in%20a%20clear%20glass&image_size=square_hd" alt="Cocoa Drink" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=homemade%20rock%20buns%20stacked%20in%20a%20basket%2C%20warm%20cozy%20aesthetic&image_size=square_hd" alt="Rock Buns" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=assortment%20of%20colorful%20yogurts%20in%20glass%20jars%20with%20fresh%20fruits&image_size=square_hd" alt="Yogurt Assortment" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item col-span-2 rounded-2xl overflow-hidden shadow-lg">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cozy%20bakery%20interior%20with%20customers%20enjoying%20pastries%20and%20coffee&image_size=landscape_16_9" alt="Bakery Interior" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart & Checkout Section -->
+    <section id="cart" class="py-24 bg-gradient-to-b from-amber-50 to-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-amber-700 text-lg font-medium mb-4 tracking-widest uppercase">Order Now</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-stone-800 mb-6">Your Cart</h2>
+            </div>
+
+            <div id="cart-items" class="space-y-6 mb-12"></div>
+
+            <div id="cart-total-container" class="glassmorphism rounded-2xl p-8 shadow-xl mb-8">
+                <div class="flex justify-between items-center mb-8">
+                    <span class="text-2xl font-semibold text-stone-800">Total Amount</span>
+                    <span id="total-price" class="text-4xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">GH₵0.00</span>
+                </div>
+
+                <div id="checkout-form-container">
+                    <button id="proceed-to-checkout" class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+                        Proceed to Checkout
+                    </button>
+                    <form id="checkout-form" class="space-y-6 hidden">
+                        <h3 class="text-2xl font-bold text-stone-800 mb-8 text-center">Complete Your Order</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Full Name</label>
+                                <input type="text" id="customer-name" required class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300" placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Email</label>
+                                <input type="email" id="customer-email" required class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300" placeholder="your@email.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Phone</label>
+                                <input type="tel" id="customer-phone" required class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300" placeholder="0534716125">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Order Type</label>
+                                <select id="order-type" class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300">
+                                    <option value="Retail">Retail</option>
+                                    <option value="Wholesale">Wholesale</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Delivery Type</label>
+                                <select id="delivery-type" class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300">
+                                    <option value="Pickup">Pickup</option>
+                                    <option value="Delivery">Delivery</option>
+                                </select>
+                            </div>
+                            <div id="delivery-address-container" class="hidden">
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Delivery Address</label>
+                                <input type="text" id="delivery-address" class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300" placeholder="Enter your address">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-stone-700 mb-2">Preferred Date & Time</label>
+                                <input type="datetime-local" id="delivery-date" class="w-full px-6 py-4 border-2 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none transition-all duration-300">
+                            </div>
+                        </div>
+                        <div class="flex gap-6 pt-6">
+                            <button type="button" id="cancel-checkout" class="flex-1 border-2 border-amber-600 text-amber-700 hover:bg-amber-100 py-4 rounded-full font-semibold transition-all duration-300">
+                                Cancel
+                            </button>
+                            <button type="submit" class="flex-1 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+                                Place Order 🎉
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="empty-cart" class="hidden text-center py-16 bg-white rounded-2xl shadow-lg">
+                <div class="text-6xl mb-6">🛒</div>
+                <h3 class="text-2xl font-semibold text-stone-800 mb-4">Your Cart is Empty</h3>
+                <p class="text-lg text-stone-600 mb-8">Add some delicious pastries to get started!</p>
+                <a href="#products" class="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                    Browse Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-stone-800 to-stone-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
+                            <span class="text-2xl">🥐</span>
+                        </div>
+                        <span class="text-2xl font-bold">Eno's Pastries</span>
+                    </div>
+                    <p class="text-stone-400 mb-6">Premium handcrafted pastries made with love, tradition, and the finest ingredients. Every bite tells a story of passion and perfection.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-stone-700 hover:bg-amber-600 rounded-full flex items-center justify-center transition-all duration-300">
+                            <span class="text-lg">📘</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-stone-700 hover:bg-amber-600 rounded-full flex items-center justify-center transition-all duration-300">
+                            <span class="text-lg">📸</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-stone-700 hover:bg-amber-600 rounded-full flex items-center justify-center transition-all duration-300">
+                            <span class="text-lg">🐦</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-stone-700 hover:bg-amber-600 rounded-full flex items-center justify-center transition-all duration-300">
+                            <span class="text-lg">💬</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-stone-400 hover:text-amber-400 transition-colors duration-300">Home</a></li>
+                        <li><a href="#products" class="text-stone-400 hover:text-amber-400 transition-colors duration-300">Products</a></li>
+                        <li><a href="#combos" class="text-stone-400 hover:text-amber-400 transition-colors duration-300">Special Combos</a></li>
+                        <li><a href="#testimonials" class="text-stone-400 hover:text-amber-400 transition-colors duration-300">Reviews</a></li>
+                        <li><a href="#gallery" class="text-stone-400 hover:text-amber-400 transition-colors duration-300">Gallery</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li><a href="tel:0534716125" class="text-stone-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2">📞 0534716125</a></li>
+                        <li><a href="tel:0547253309" class="text-stone-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2">📞 0547253309</a></li>
+                        <li><a href="tel:0241836872" class="text-stone-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2">📞 0241836872</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-stone-700 mt-12 pt-8 text-center text-stone-500">
+                <p>© 2026 Eno's Pastries. All rights reserved. Made with 🥐 and ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Order Button -->
+    <a href="#cart" class="fixed bottom-8 right-8 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition-all duration-300 z-40">
+        <span class="text-3xl">🛒</span>
+        <span id="floating-cart-count" class="absolute -top-2 -right-2 bg-stone-800 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
+    </a>
+
+    <script>
+        // Product Data
+        const products = [
+            { id: '1', name: "Meat Pie (Corned Beef Filling)", description: "Juicy corned beef encased in flaky, golden pastry", price: 15.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=close%20up%20of%20freshly%20baked%20golden%20brown%20corned%20beef%20meat%20pie%20on%20a%20white%20ceramic%20plate%2C%20warm%20lighting&image_size=square_hd", category: "Pastry", bestseller: true, available: true },
+            { id: '2', name: "Meat Pie (Egg Filling)", description: "Creamy egg filling wrapped in buttery, flaky crust", price: 12.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=delicious%20egg%20meat%20pie%20cut%20open%20showing%20creamy%20egg%20filling%2C%20golden%20brown%20crust&image_size=square_hd", category: "Pastry", bestseller: false, available: true },
+            { id: '3', name: "Meat Pie (Vegetable Filling)", description: "Fresh vegetables in a rich, savory sauce", price: 10.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=healthy%20vegetable%20meat%20pie%20with%20colorful%20vegetable%20filling%2C%20golden%20crust&image_size=square_hd", category: "Pastry", bestseller: false, available: true },
+            { id: '4', name: "Meat Pie (Corned Beef & Sausage)", description: "Double delight with corned beef and sausage", price: 18.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=gourmet%20corned%20beef%20and%20sausage%20meat%20pie%2C%20artisan%20bakery%20style&image_size=square_hd", category: "Pastry", bestseller: true, available: true },
+            { id: '5', name: "Rock Buns", description: "Crunchy, buttery, and absolutely irresistible", price: 8.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=homemade%20golden%20brown%20rock%20buns%20stacked%20in%20a%20wicker%20basket%2C%20warm%20cozy%20aesthetic&image_size=square_hd", category: "Pastry", bestseller: true, available: true },
+            { id: '6', name: "Cocoa Drink", description: "Rich, creamy, and perfect with any pastry", price: 10.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20hot%20chocolate%20cocoa%20drink%20with%20whipped%20cream%20and%20cocoa%20powder%20dusted%2C%20in%20a%20clear%20glass&image_size=square_hd", category: "Drink", bestseller: true, available: true },
+            { id: '7', name: "Vanilla Yoghurt", description: "Smooth, creamy, and perfectly sweetened", price: 12.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=gourmet%20vanilla%20yogurt%20in%20a%20glass%20jar%20with%20vanilla%20beans%2C%20fresh%20aesthetic&image_size=square_hd", category: "Drink", bestseller: false, available: true },
+            { id: '8', name: "Strawberry Yoghurt", description: "Fresh strawberries in creamy yoghurt", price: 12.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=delicious%20strawberry%20yogurt%20with%20fresh%20strawberries%20in%20a%20bowl&image_size=square_hd", category: "Drink", bestseller: false, available: true }
+        ];
+
+        // Combos Data
+        const combos = [
+            { id: 'c1', name: "Meat Pie + Yoghurt", description: "Classic combo with any meat pie and yoghurt", originalPrice: 27.00, price: 22.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=meat%20pie%20and%20yogurt%20combo%20on%20a%20wooden%20tray%2C%20premium%20presentation&image_size=square_hd", items: ["Any Meat Pie", "Yoghurt (Any Flavor)"] },
+            { id: 'c2', name: "Meat Pie + Cocoa Drink", description: "Warm cocoa with your favorite meat pie", originalPrice: 25.00, price: 20.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=meat%20pie%20and%20hot%20chocolate%20combo%2C%20cozy%20bakery%20style&image_size=square_hd", items: ["Any Meat Pie", "Cocoa Drink"] },
+            { id: 'c3', name: "Rock Buns + Cocoa Drink", description: "Perfect pairing for any time of day", originalPrice: 18.00, price: 15.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=rock%20buns%20and%20hot%20cocoa%20drink%20combo%2C%20warm%20aesthetic&image_size=square_hd", items: ["Rock Buns", "Cocoa Drink"] },
+            { id: 'c4', name: "Rock Buns + Yoghurt", description: "Crunchy meets creamy - a match made in heaven", originalPrice: 20.00, price: 17.00, imageUrl: "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=rock%20buns%20and%20yogurt%20combo%2C%20fresh%20and%20healthy%20style&image_size=square_hd", items: ["Rock Buns", "Yoghurt (Any Flavor)"] }
+        ];
+
+        // Cart Management
+        let cart = JSON.parse(localStorage.getItem('enosPastriesCart')) || [];
+
+        function saveCart() {
+            localStorage.setItem('enosPastriesCart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const floatingCartCount = document.getElementById('floating-cart-count');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            const cartTotalContainer = document.getElementById('cart-total-container');
+            const emptyCartContainer = document.getElementById('empty-cart');
+
+            const count = cart.length;
+            cartCount.textContent = count;
+            floatingCartCount.textContent = count;
+            cartCount.classList.toggle('hidden', count === 0);
+            floatingCartCount.classList.toggle('hidden', count === 0);
+
+            if (count === 0) {
+                cartItemsContainer.innerHTML = '';
+                cartTotalContainer.classList.add('hidden');
+                emptyCartContainer.classList.remove('hidden');
+            } else {
+                emptyCartContainer.classList.add('hidden');
+                cartTotalContainer.classList.remove('hidden');
+
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="glassmorphism rounded-2xl p-6 shadow-lg flex items-center gap-6 animate-fade-in-up" style="animation-delay: ${index * 0.1}s;">
+                        <img src="${item.imageUrl}" alt="${item.name}" class="w-24 h-24 object-cover rounded-xl">
+                        <div class="flex-1">
+                            <h4 class="text-xl font-semibold text-stone-800 mb-1">${item.name}</h4>
+                            <p class="text-amber-700 font-bold text-lg">GH₵${item.price.toFixed(2)}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="w-12 h-12 bg-red-100 hover:bg-red-200 text-red-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                            ✕
+                        </button>
+                    </div>
+                `).join('');
+
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                totalPriceElement.textContent = `GH₵${total.toFixed(2)}`;
+            }
+        }
+
+        function addToCart(product) {
+            cart.push(product);
+            saveCart();
+            updateCartUI();
+            // Show simple toast notification
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-24 right-8 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-4 rounded-2xl shadow-2xl z-50 animate-fade-in-up';
+            toast.innerHTML = `✅ ${product.name} added to cart!`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartUI();
+        }
+
+        // Render Products
+        let selectedCategory = 'All';
+        let searchQuery = '';
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      (product.description?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false);
+                const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16">
+                        <div class="text-6xl mb-6">🔍</div>
+                        <h3 class="text-2xl font-semibold text-stone-800 mb-4">No Products Found</h3>
+                        <p class="text-lg text-stone-600">Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredProducts.map((product, index) => `
+                <div class="product-card glassmorphism rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${product.bestseller ? 'animate-glow' : ''} animate-fade-in-up" style="animation-delay: ${index * 0.1}s;">
+                    <div class="relative overflow-hidden">
+                        <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-56 object-cover">
+                        ${product.bestseller ? `<div class="absolute top-4 left-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-semibold">Best Seller</div>` : ''}
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-amber-700 font-medium mb-2">${product.category}</div>
+                        <h3 class="text-xl font-semibold text-stone-800 mb-2">${product.name}</h3>
+                        <p class="text-stone-600 mb-4 text-sm line-clamp-2">${product.description}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">GH₵${product.price.toFixed(2)}</span>
+                            <button onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&#39;")})' class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-5 py-2.5 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Combos
+        function renderCombos() {
+            const grid = document.getElementById('combos-grid');
+            grid.innerHTML = combos.map((combo, index) => `
+                <div class="glassmorphism rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 animate-fade-in-up" style="animation-delay: ${index * 0.15}s;">
+                    <div class="relative overflow-hidden">
+                        <img src="${combo.imageUrl}" alt="${combo.name}" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 right-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Save GH₵${(combo.originalPrice - combo.price).toFixed(0)}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-stone-800 mb-2">${combo.name}</h3>
+                        <p class="text-stone-600 mb-3 text-sm">${combo.description}</p>
+                        <ul class="text-sm text-stone-500 mb-4 space-y-1">
+                            ${combo.items.map(item => `<li>• ${item}</li>`).join('')}
+                        </ul>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-baseline gap-3">
+                                <span class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">GH₵${combo.price.toFixed(2)}</span>
+                                <span class="text-lg text-stone-400 line-through">GH₵${combo.originalPrice.toFixed(2)}</span>
+                            </div>
+                            <button onclick='addToCart({id: "${combo.id}", name: "${combo.name}", price: ${combo.price}, imageUrl: "${combo.imageUrl}", category: "Combo", description: "${combo.description}"});' class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-5 py-2.5 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                                Get Combo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Event Listeners
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderProducts();
+        });
+
+        document.querySelectorAll('.category-filter').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.category-filter').forEach(btn => {
+                    btn.className = 'category-filter bg-white text-stone-700 hover:bg-amber-100 px-6 py-2 rounded-full font-medium border-2 border-amber-200 transition-all duration-300';
+                });
+                e.target.className = 'category-filter bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-2 rounded-full font-medium shadow-lg';
+                selectedCategory = e.target.dataset.category;
+                renderProducts();
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Checkout form
+        document.getElementById('delivery-type').addEventListener('change', (e) => {
+            const container = document.getElementById('delivery-address-container');
+            container.classList.toggle('hidden', e.target.value !== 'Delivery');
+            if (e.target.value === 'Delivery') {
+                document.getElementById('delivery-address').required = true;
+            }
+        });
+
+        document.getElementById('proceed-to-checkout').addEventListener('click', () => {
+            document.getElementById('proceed-to-checkout').classList.add('hidden');
+            document.getElementById('checkout-form').classList.remove('hidden');
+        });
+
+        document.getElementById('cancel-checkout').addEventListener('click', () => {
+            document.getElementById('checkout-form').classList.add('hidden');
+            document.getElementById('proceed-to-checkout').classList.remove('hidden');
+        });
+
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const orderData = {
+                customerName: document.getElementById('customer-name').value,
+                customerEmail: document.getElementById('customer-email').value,
+                customerPhone: document.getElementById('customer-phone').value,
+                orderType: document.getElementById('order-type').value,
+                deliveryType: document.getElementById('delivery-type').value,
+                deliveryAddress: document.getElementById('delivery-address').value,
+                deliveryDate: document.getElementById('delivery-date').value,
+                totalAmount: cart.reduce((sum, item) => sum + item.price, 0),
+                items: cart
+            };
+
+            console.log('Order placed:', orderData);
+
+            // Success animation
+            const successDiv = document.createElement('div');
+            successDiv.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-[100] animate-fade-in-up';
+            successDiv.innerHTML = `
+                <div class="bg-white rounded-3xl p-12 text-center max-w-md shadow-2xl">
+                    <div class="text-8xl mb-6">🎉</div>
+                    <h3 class="text-3xl font-bold text-stone-800 mb-4">Order Placed Successfully!</h3>
+                    <p class="text-lg text-stone-600 mb-8">Thank you for choosing Eno's Pastries! We'll contact you soon to confirm your order.</p>
+                    <button onclick="this.parentElement.parentElement.remove();" class="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg">
+                        Continue Shopping
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(successDiv);
+
+            // Clear cart
+            cart = [];
+            saveCart();
+            updateCartUI();
+
+            // Reset form
+            document.getElementById('checkout-form').reset();
+            document.getElementById('checkout-form').classList.add('hidden');
+            document.getElementById('proceed-to-checkout').classList.remove('hidden');
+        });
+
+        // Initialize
+        renderProducts();
+        renderCombos();
+        updateCartUI();
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.animate-fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
